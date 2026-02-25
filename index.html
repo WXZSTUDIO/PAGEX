@@ -3,149 +3,127 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>PAGE_X MVP SHOWDOWN | Professional H5 Interactive</title>
+    <title>PAGE_X MVP SHOWDOWN | Interactive Portal</title>
     <link rel="stylesheet" href="style.css">
 </head>
-<body class="dark-mode-optimized">
+<body class="pro-h5-dark">
 
-    <div id="app-root">
-        
-        <nav class="global-navigation">
-            <div class="nav-container">
-                <div class="nav-back-icon">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><polyline points="15 18 9 12 15 6"></polyline></svg>
-                </div>
-                <div class="nav-middle-brand">PAGE_X OFFICIAL</div>
-                <div class="nav-right-options">
-                    <div class="dot"></div><div class="dot"></div><div class="dot"></div>
-                </div>
+    <div id="h5-root">
+        <nav class="pro-nav">
+            <div class="nav-content">
+                <div class="nav-icon-box">〈</div>
+                <div class="nav-brand">PAGE_X OFFICIAL</div>
+                <div class="nav-icon-box">⋯</div>
             </div>
         </nav>
 
-        <section class="user-profile-card">
-            <div class="profile-upper-layout">
-                <div class="avatar-dynamic-gradient">
-                    <span class="avatar-text">PX</span>
-                    <div class="live-ring"></div>
+        <section class="pro-profile">
+            <div class="profile-top-deck">
+                <div class="px-avatar-node">
+                    <span class="px-txt">PX</span>
+                    <div class="px-ring"></div>
                 </div>
-                <div class="user-stats-container">
-                    <div class="user-name-row">
-                        <h2 class="display-name">podo.page_x</h2>
-                        <div class="verified-icon">✓</div>
+                <div class="px-info-node">
+                    <div class="px-name-row">
+                        <h1>podo.page_x</h1>
+                        <span class="v-mark">✓</span>
                     </div>
-                    <p class="account-handle">@page_x_official</p>
-                    <div class="data-row">
-                        <div class="stat-item"><strong>24.7K</strong> <span>粉丝</span></div>
-                        <div class="stat-item"><strong>85.3K</strong> <span>获赞</span></div>
-                        <div class="stat-item"><strong>128</strong> <span>作品</span></div>
+                    <p class="px-tag">@page_x_official</p>
+                    <div class="px-stats">
+                        <div class="s-cell"><strong>24.7K</strong> 粉丝</div>
+                        <div class="s-cell"><strong>85.3K</strong> 获赞</div>
                     </div>
-                </div>
-            </div>
-            
-            <div class="profile-description">
-                <div class="bio-tags">
-                    <span>#KPOP</span><span>#MVP_SHOWDOWN</span><span>#GLOBAL</span>
-                </div>
-                <p class="bio-content">
-                    📍 Based in Seoul, KR<br>
-                    Welcome to the official PAGE_X interactive portal.<br>
-                    Keep track of our members: @Eunwo @LEO @Nick @SUHO
-                </p>
-                <div class="live-announcement">
-                    <span class="pulse-icon"></span> 
-                    <strong>LIVE SHOWCASE:</strong> MAR 1st, 09:00 AM (KST)
                 </div>
             </div>
 
-            <div class="profile-action-group">
-                <button id="followMainBtn" class="primary-action-btn">关注 (Follow)</button>
-                <button class="secondary-action-btn">发消息</button>
-                <button class="icon-action-btn">▼</button>
+            <div class="px-bio-node">
+                <div class="px-tags"><span>#KPOP</span> <span>#MVP</span> <span>#VOTE</span></div>
+                <p>📍 Seoul, Korea | Global Showcase Interface<br>
+                Support your bias: @Eunwo🐹 @LEO🐺 @Nick🧛 @SUHO🐶</p>
+            </div>
+
+            <div class="px-actions">
+                <button id="mainFollowBtn" class="px-btn-red">关注 (Follow)</button>
+                <button class="px-btn-gray">私信联系</button>
             </div>
         </section>
 
-        <main class="main-content-feed">
-            <article class="interactive-post-node">
-                
-                <header class="post-node-header">
-                    <div class="node-title-group">
-                        <span class="node-tag">EVENT</span>
-                        <h3 class="node-main-title">PAGE_X MVP SHOWDOWN</h3>
-                    </div>
-                    <div class="node-timestamp">刚刚发布</div>
-                </header>
+        <section class="countdown-hero">
+            <div class="timer-title">LIVE SHOWCASE COUNTDOWN</div>
+            <div class="timer-main" id="timerMain">
+                <div class="t-block"><span id="t-d">00</span><label>天</label></div>
+                <div class="t-sep">:</div>
+                <div class="t-block"><span id="t-h">00</span><label>时</label></div>
+                <div class="t-sep">:</div>
+                <div class="t-block"><span id="t-m">00</span><label>分</label></div>
+                <div class="t-sep">:</div>
+                <div class="t-block"><span id="t-s">00</span><label>秒</label></div>
+            </div>
+            <div class="timer-footer">1.MAR 08:30 (KST)</div>
+        </section>
 
-                <div class="media-viewport-container" onclick="H5Controller.launchGallery(0)">
-                    <div class="media-ratio-box">
-                        <img src="images/card-1.jpg" alt="PAGE_X Showdown" class="fluid-media-asset">
-                        <div class="media-interactive-hint">
-                            <div class="hint-icon">🔍</div>
-                            <span>点击解锁完整规则</span>
+        <main class="content-feed">
+            <article class="feed-node">
+                <div class="node-meta">
+                    <span class="node-badge">MVP SHOWDOWN</span>
+                    <span class="node-time">Latest Update</span>
+                </div>
+                
+                <div class="media-stage" onclick="H5Control.openGallery(0)">
+                    <div class="media-inner">
+                        <img src="images/card-1.jpg" alt="Cover" class="img-fluid">
+                        <div class="media-label">
+                            <i class="eye-icon"></i> 点击解锁对战详情
                         </div>
                     </div>
                 </div>
 
-                <footer class="social-engagement-wrapper">
-                    <div class="engagement-cluster">
-                        <div class="engage-trigger like-trigger" onclick="H5Controller.handleLike(this)">
-                            <svg class="heart-svg" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
-                            <span class="engage-label">85.3K</span>
+                <div class="toolbar">
+                    <div class="tool-left">
+                        <div class="tool-btn" id="likeAction" onclick="H5Control.like()">
+                            <span class="icon-h">❤</span> <span id="likeCount">85.3K</span>
                         </div>
-                        <div class="engage-trigger comment-trigger">
-                            <svg class="msg-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
-                            <span class="engage-label">1,240</span>
+                        <div class="tool-btn">
+                            <span class="icon-h">💬</span> 1,240
                         </div>
-                        <div class="engage-trigger collect-trigger" onclick="H5Controller.handleCollect(this)">
-                            <svg class="star-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
-                            <span class="engage-label">收藏</span>
+                        <div class="tool-btn" id="collectAction" onclick="H5Control.collect()">
+                            <span class="icon-h">★</span> <span id="collectLabel">收藏</span>
                         </div>
                     </div>
-                    <div class="share-trigger-node" onclick="H5Controller.handleShare()">
-                        <svg class="share-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line></svg>
+                    <div class="tool-right" onclick="H5Control.share()">
+                        <span class="icon-h">➹</span>
                     </div>
-                </footer>
+                </div>
 
-                <div class="post-caption-box">
-                    <p><strong>podo.page_x</strong> Make Your Bias the King! 谁将成为最终的 MVP？快来查阅详细对战规则！#PAGE_X #KPOP #MVP</p>
+                <div class="caption-node">
+                    <p><strong>podo.page_x</strong> 谁将夺得 MVP 桂冠？查看第二、三张卡片了解详细流程！</p>
                 </div>
             </article>
         </main>
     </div>
 
-    <div id="gallery-overlay" class="immersive-modal">
-        
-        <div class="story-indicator-system">
-            <div class="indicator-track"><div id="progress-0" class="indicator-fill"></div></div>
-            <div class="indicator-track"><div id="progress-1" class="indicator-fill"></div></div>
+    <div id="gallery-ui" class="gallery-mask">
+        <div class="gallery-steps">
+            <div class="step-track"><div id="step-0" class="step-fill"></div></div>
+            <div class="step-track"><div id="step-1" class="step-fill"></div></div>
         </div>
 
-        <header class="modal-top-bar">
-            <div class="modal-title-info">EVENT DETAILS</div>
-            <button class="modal-close-trigger" onclick="H5Controller.exitGallery()">关闭</button>
-        </header>
+        <button class="gallery-exit" onclick="H5Control.closeGallery()">✕ CLOSE</button>
 
-        <div class="gallery-master-viewport">
+        <div class="gallery-view">
+            <div class="nav-trigger prev" onclick="H5Control.prev()">‹</div>
             
-            <aside class="viewport-nav-left" onclick="H5Controller.stepPrev()">
-                <div class="round-btn">‹</div>
-            </aside>
+            <div class="img-container">
+                <img id="viewImg" src="" alt="Rules">
+            </div>
 
-            <section class="viewport-content-frame">
-                <div id="image-render-layer">
-                    <img id="active-gallery-asset" src="" alt="Detail Content">
-                </div>
-            </section>
-
-            <aside class="viewport-nav-right" onclick="H5Controller.stepNext()">
-                <div class="round-btn">›</div>
-            </aside>
-            
+            <div class="nav-trigger next" onclick="H5Control.next()">›</div>
         </div>
 
-        <footer class="gallery-bottom-info">
-            <div id="asset-description-label" class="desc-text">正在加载详情说明...</div>
-            <div class="page-counter-node"><span id="curr-idx">1</span> / 2</div>
-        </footer>
+        <div class="gallery-caption">
+            <h4 id="viewTitle">PAGE_X MVP RULEBOOK</h4>
+            <p id="viewDesc">正在同步最新规则数据...</p>
+        </div>
     </div>
 
     <script src="app.js"></script>
