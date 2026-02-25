@@ -3,86 +3,92 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>PAGE_X Official | MVP SHOWDOWN</title>
+    <title>PAGE_X MVP SHOWDOWN | Official H5</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body class="dark-theme">
 
-    <header class="app-header">
-        <div class="profile-section">
-            <div class="avatar-container">
-                <div class="avatar-ring"></div>
-                <img src="images/profile_avatar.jpg" alt="PAGE_X" class="user-avatar">
-            </div>
-            <div class="user-meta">
-                <h1 class="alias">podo.page_x <span class="badge">PAGE_X🔥</span></h1>
-                <div class="engagement-stats">
-                    <span><strong>86</strong> 关注</span>
-                    <span><strong>24.7K</strong> 粉丝</span>
-                    <span><strong>85.3K</strong> 获赞</span>
+    <div id="app">
+        <header class="h5-header">
+            <div class="nav-left">〈</div>
+            <div class="nav-title">PAGE_X Official</div>
+            <div class="nav-right">⋯</div>
+        </header>
+
+        <section class="profile-card">
+            <div class="profile-main">
+                <div class="letter-avatar">PX</div>
+                <div class="user-details">
+                    <h2 class="alias">podo.page_x <span class="v-badge">✓</span></h2>
+                    <p class="group-tag">PAGE_X Official Account 🔥</p>
+                    <div class="stat-row">
+                        <span><strong>24.7K</strong> 粉丝</span>
+                        <span><strong>85.3K</strong> 获赞</span>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="bio-section">
-            <p>📍 South Korea</p>
-            <p>@Eunwo🐹 @LEO🐺 @Nick🧛 @SUHO🐶</p>
-            <p class="highlight-text">LIVE Time | 09:00am (KST)</p>
-        </div>
-        <div class="interaction-bar">
-            <button class="btn-primary" id="followBtn">关注 (Follow)</button>
-            <button class="btn-secondary">消息 (Message)</button>
-        </div>
-    </header>
-
-    <div class="tab-divider"></div>
-
-    <main class="feed-container">
-        <article class="post-card">
-            <div class="post-header">
-                <span class="post-title">PAGE_X MVP SHOWDOWN</span>
-                <span class="post-date">1.MAR 08:30 (KST)</span>
+            <div class="bio-text">
+                📍 South Korea | Global Fanbase<br>
+                @Eunwo🐹 @LEO🐺 @Nick🧛 @SUHO🐶<br>
+                <span class="live-status">● LIVE Time | 09:00am (KST)</span>
             </div>
+            <div class="btn-group">
+                <button class="btn-follow" id="followBtn">关注 (Follow)</button>
+                <button class="btn-chat">私信</button>
+            </div>
+        </section>
+
+        <main class="feed-flow">
+            <article class="content-post">
+                <div class="post-info">
+                    <span class="category">#MVP_SHOWDOWN</span>
+                    <h3 class="title">PAGE_X MVP SHOWDOWN: Make Your Bias the King</h3>
+                    <p class="event-time">📅 1.MAR 08:30 (KST)</p>
+                </div>
+
+                <div class="media-container" onclick="H5Engine.openGallery(0)">
+                    <img src="images/card-1.jpg" alt="Cover" class="main-img">
+                    <div class="expand-tag">点击查看规则详情</div>
+                </div>
+
+                <div class="social-actions">
+                    <div class="action-item" onclick="H5Engine.toggleLike(this)">
+                        <span class="icon">❤</span> <span class="val">85.3K</span>
+                    </div>
+                    <div class="action-item">
+                        <span class="icon">💬</span> <span class="val">1.2K</span>
+                    </div>
+                    <div class="action-item" onclick="H5Engine.toggleCollect(this)">
+                        <span class="icon">★</span> <span class="val">收藏</span>
+                    </div>
+                    <div class="action-item" onclick="H5Engine.share()">
+                        <span class="icon">➹</span> <span class="val">分享</span>
+                    </div>
+                </div>
+            </article>
+        </main>
+    </div>
+
+    <div class="lightbox-overlay" id="gallery">
+        <div class="story-progress">
+            <div class="prog-bar"><div class="fill" id="fill0"></div></div>
+            <div class="prog-bar"><div class="fill" id="fill1"></div></div>
+        </div>
+
+        <button class="close-lightbox" onclick="H5Engine.closeGallery()">关闭</button>
+
+        <div class="viewer-core">
+            <div class="side-btn prev" onclick="H5Engine.goPrev()">‹</div>
             
-            <div class="media-canvas" onclick="Gallery.open(0)">
-                <img src="images/card-1.jpg" alt="MVP Showdown Cover" class="responsive-img">
-                <div class="tap-hint">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="white"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
-                    点击查看详情
-                </div>
+            <div class="image-box">
+                <img id="displayImg" src="" alt="Detail Content">
             </div>
 
-            <div class="post-footer">
-                <div class="quick-actions">
-                    <span class="action-item" onclick="Interaction.like(this)">
-                        <svg class="heart-icon" width="24" height="24" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
-                        <span class="count">85.3K</span>
-                    </span>
-                </div>
-                <p class="caption">Make Your Bias the King! 👑 谁将成为最终的 MVP？</p>
-            </div>
-        </article>
-    </main>
-
-    <div class="overlay" id="galleryOverlay">
-        <div class="progress-container">
-            <div class="progress-segment"><div class="progress-fill" id="p1"></div></div>
-            <div class="progress-segment"><div class="progress-fill" id="p2"></div></div>
+            <div class="side-btn next" onclick="H5Engine.goNext()">›</div>
         </div>
 
-        <button class="exit-button" onclick="Gallery.close()">✕ 返回</button>
-        
-        <div class="viewer-wrapper">
-            <button class="circle-nav prev" onclick="Gallery.prev()">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"></polyline></svg>
-            </button>
-
-            <div class="img-host">
-                <img id="activeImg" src="" alt="Detail View">
-            </div>
-
-            <button class="circle-nav next" onclick="Gallery.next()">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg>
-            </button>
+        <div class="viewer-footer">
+            <p id="img-desc">正在加载流程详情...</p>
         </div>
     </div>
 
