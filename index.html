@@ -3,87 +3,105 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PAGE_X MVP SHOWDOWN</title>
+    <title>PAGE_X Official Profile</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<div class="card-wrapper">
-    <div style="padding: 20px;">
-        <h2 style="margin:0; font-size:1.4rem;">PAGE_X MVP SHOWDOWN</h2>
-        <p style="color:#86868b; margin:5px 0 0;">Make Your Bias the King [cite: 12]</p>
+    <header class="profile-header">
+        <div class="profile-top">
+            <div class="avatar-wrapper">
+                <img src="images/profile_avatar.jpg" alt="PAGE_X" class="avatar">
+            </div>
+            <div class="profile-info">
+                <h1 class="username">podo.page_x <span class="group-name">PAGE_X🔥</span></h1>
+                <div class="stats">
+                    <span><strong>86</strong> Following</span>
+                    <span><strong>24.7K</strong> Followers</span>
+                    <span><strong>85.3K</strong> Likes</span>
+                </div>
+            </div>
+        </div>
+        <div class="profile-bio">
+            <p>📍 🇰🇷</p>
+            <p>@Eunwo🐹 @LEO🐺</p>
+            <p>@Nick🧛 @SUHO🐶</p>
+            <p class="live-time">LIVE Time | 09:00am(KST)</p>
+        </div>
+        <div class="action-buttons">
+            <button class="btn-follow">Follow</button>
+            <button class="btn-msg">Message</button>
+        </div>
+    </header>
+
+    <hr class="divider">
+
+    <main class="content-area">
+        <div class="card-wrapper">
+            <div class="card-meta">
+                <h3>PAGE_X MVP SHOWDOWN</h3>
+                <p>Make Your Bias the King | 1.MAR 08:30 (KST)</p>
+            </div>
+
+            <div class="main-stage" onclick="openLightbox()">
+                <img src="images/card-1.jpg" alt="MVP SHOWDOWN Cover">
+                <div class="hover-overlay">View Details</div>
+            </div>
+        </div>
+    </main>
+
+    <div class="lightbox" id="lightbox">
+        <div class="lightbox-content">
+            <span class="close-btn" onclick="closeLightbox()">✕ Close</span>
+            
+            <button class="nav-btn prev" onclick="changeImage(-1)">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><polyline points="15 18 9 12 15 6"></polyline></svg>
+            </button>
+
+            <img id="lightbox-img" src="" alt="Detail View">
+
+            <button class="nav-btn next" onclick="changeImage(1)">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+            </button>
+        </div>
     </div>
 
-    <div class="main-stage" onclick="openLightbox(0)">
-        <img src="images/card-1.jpg" alt="Cover">
-    </div>
+    <script>
+        // 逻辑：仅展示 card-2 和 card-3 
+        const subImages = ['images/card-2.jpg', 'images/card-3.jpg'];
+        let currentIndex = 0;
 
-    <div style="padding: 15px; text-align: center; color: #86868b; font-size: 0.9rem;">
-        Click to view details
-    </div>
-</div>
-
-<div class="lightbox" id="lightbox">
-    <div class="lightbox-content">
-        <span class="close-btn" onclick="closeLightbox()">✕ Back to Main</span>
-        
-        <button class="nav-btn prev" onclick="changeImage(-1)">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"></polyline></svg>
-        </button>
-
-        <img id="lightbox-img" src="" alt="Detail View">
-
-        <button class="nav-btn next" onclick="changeImage(1)">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg>
-        </button>
-    </div>
-</div>
-
-<script>
-    // 逻辑：点击后仅在 card-2 和 card-3 之间切换
-    const subImages = [
-        'images/card-2.jpg', // 索引 0 
-        'images/card-3.jpg'  // 索引 1 
-    ];
-    
-    let currentIndex = 0;
-
-    function openLightbox(index) {
-        currentIndex = 0; // 默认点开展示 card-2
-        updateLightbox();
-        const lb = document.getElementById('lightbox');
-        lb.style.display = 'flex';
-        setTimeout(() => lb.classList.add('active'), 10);
-    }
-
-    function closeLightbox() {
-        const lb = document.getElementById('lightbox');
-        lb.classList.remove('active');
-        setTimeout(() => lb.style.display = 'none', 400);
-    }
-
-    function changeImage(step) {
-        // 在 card-2 和 card-3 之间循环
-        currentIndex = (currentIndex + step + subImages.length) % subImages.length;
-        
-        // 添加简单的淡入淡出动画过渡图片
-        const img = document.getElementById('lightbox-img');
-        img.style.opacity = '0';
-        setTimeout(() => {
+        function openLightbox() {
+            currentIndex = 0;
             updateLightbox();
-            img.style.opacity = '1';
-        }, 200);
-    }
+            const lb = document.getElementById('lightbox');
+            lb.style.display = 'flex';
+            setTimeout(() => lb.classList.add('active'), 10);
+        }
 
-    function updateLightbox() {
-        document.getElementById('lightbox-img').src = subImages[currentIndex];
-    }
+        function closeLightbox() {
+            const lb = document.getElementById('lightbox');
+            lb.classList.remove('active');
+            setTimeout(() => lb.style.display = 'none', 400);
+        }
 
-    // 点击暗部区域返回
-    document.getElementById('lightbox').onclick = function(e) {
-        if (e.target.id === 'lightbox') closeLightbox();
-    }
-</script>
+        function changeImage(step) {
+            currentIndex = (currentIndex + step + subImages.length) % subImages.length;
+            const img = document.getElementById('lightbox-img');
+            img.style.opacity = '0';
+            setTimeout(() => {
+                updateLightbox();
+                img.style.opacity = '1';
+            }, 150);
+        }
 
+        function updateLightbox() {
+            document.getElementById('lightbox-img').src = subImages[currentIndex];
+        }
+
+        document.getElementById('lightbox').onclick = function(e) {
+            if (e.target.id === 'lightbox') closeLightbox();
+        }
+    </script>
 </body>
 </html>
