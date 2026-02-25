@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>PAGE_X MVP SHOWDOWN | Professional H5</title>
+    <title>PAGE_X MVP SHOWDOWN | Official Interactive</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body class="pro-h5-dark">
@@ -35,42 +35,46 @@
                     </div>
                 </div>
             </div>
+
             <div class="px-bio-node">
                 <div class="px-tags"><span>#KPOP</span> <span>#MVP</span> <span>#VOTE</span></div>
                 <p>📍 Seoul, Korea | Global Showcase Interface<br>
                 Support your bias: @Eunwo🐹 @LEO🐺 @Nick🧛 @SUHO🐶</p>
             </div>
+
             <div class="px-actions">
                 <button id="mainFollowBtn" class="px-btn-red">Follow</button>
                 <button class="px-btn-gray">Message</button>
             </div>
         </section>
 
-        <section class="countdown-bar-sync">
-            <div class="bar-left-info">
-                <span class="live-dot"></span>
-                <span class="event-title">LIVE IN</span>
+        <section class="countdown-hero">
+            <div class="timer-title">LIVE SHOWCASE COUNTDOWN</div>
+            <div class="timer-main" id="timerMain">
+                <div class="t-block"><span id="t-d">00</span><label>DAYS</label></div>
+                <div class="t-sep">:</div>
+                <div class="t-block"><span id="t-h">00</span><label>HOURS</label></div>
+                <div class="t-sep">:</div>
+                <div class="t-block"><span id="t-m">00</span><label>MINS</label></div>
+                <div class="t-sep">:</div>
+                <div class="t-block"><span id="t-s">00</span><label>SECS</label></div>
             </div>
-            <div class="timer-flex" id="timerMain">
-                <div class="t-unit"><span id="t-d">00</span><label>D</label></div>
-                <div class="t-unit"><span id="t-h">00</span><label>H</label></div>
-                <div class="t-unit"><span id="t-m">00</span><label>M</label></div>
-                <div class="t-unit"><span id="t-s">00</span><label>S</label></div>
-            </div>
-            <div class="bar-right-date">1.MAR 08:30 KST</div>
+            <div class="timer-footer">1.MAR 08:30 (KST)</div>
         </section>
 
         <main class="content-feed">
             <article class="feed-node">
                 <div class="node-meta">
                     <span class="node-badge">MVP SHOWDOWN</span>
-                    <span class="node-time">Just Now</span>
+                    <span class="node-time">Latest Update</span>
                 </div>
                 
                 <div class="media-stage" onclick="H5Control.openGallery(0)">
                     <div class="media-inner">
                         <img src="images/card-1.jpg" alt="Cover" class="img-fluid">
-                        <div class="media-label">Tap to View Rules</div>
+                        <div class="media-label">
+                            <i class="eye-icon"></i> Tap to View Rules
+                        </div>
                     </div>
                 </div>
 
@@ -92,7 +96,7 @@
                 </div>
 
                 <div class="caption-node">
-                    <p><strong>podo.page_x</strong> Make Your Bias the King! Check full rules on the next slides.</p>
+                    <p><strong>podo.page_x</strong> Who will be the MVP KING? Check the details on the next slides! #PAGE_X #KPOP #MVP</p>
                 </div>
             </article>
         </main>
@@ -103,17 +107,22 @@
             <div class="step-track"><div id="step-0" class="step-fill"></div></div>
             <div class="step-track"><div id="step-1" class="step-fill"></div></div>
         </div>
+
         <button class="gallery-exit" onclick="H5Control.closeGallery()">✕ CLOSE</button>
+
         <div class="gallery-view">
             <div class="nav-trigger prev" onclick="H5Control.prev()">‹</div>
+            
             <div class="img-container">
-                <img id="viewImg" src="" alt="Detail">
+                <img id="viewImg" src="" alt="Rules Detail">
             </div>
+
             <div class="nav-trigger next" onclick="H5Control.next()">›</div>
         </div>
+
         <div class="gallery-caption">
-            <h4 id="viewTitle">RULEBOOK</h4>
-            <p id="viewDesc">Loading details...</p>
+            <h4 id="viewTitle">PAGE_X MVP RULEBOOK</h4>
+            <p id="viewDesc">Syncing latest event data...</p>
         </div>
     </div>
 
