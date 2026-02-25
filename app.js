@@ -1,125 +1,127 @@
 /**
- * PAGE_X MVP SHOWDOWN 交互逻辑
- * 涵盖：图片画廊、自动播放、进度条、键盘控制、社交模拟
+ * PAGE_X MVP SHOWDOWN H5 ENGINE
+ * 包含：自动循环播放、社交互动逻辑、键盘监听、响应式缩放
  */
 
-const Gallery = (() => {
-    const images = ['images/card-2.jpg', 'images/card-3.jpg'];
-    let currentIndex = 0;
-    let autoTimer = null;
-    let progressTimer = null;
-    const duration = 5000; // 5秒自动切换
-
-    const dom = {
-        overlay: document.getElementById('galleryOverlay'),
-        img: document.getElementById('activeImg'),
-        progressFills: [document.getElementById('p1'), document.getElementById('p2')]
+const H5Engine = (() => {
+    // 数据配置
+    const config = {
+        images: ['images/card-2.jpg', 'images/card-3.jpg'],
+        descriptions: ['活动流程：从 Opening 到 Grand Final', '计分规则：积分制与决赛淘汰机制'],
+        playDuration: 6000 // 6秒
     };
 
-    const update = () => {
-        dom.img.style.opacity = '0';
+    let state = {
+        currentIndex: 0,
+        timer: null,
+        progressTimer: null,
+        isLightboxOpen: false
+    };
+
+    // 弹窗逻辑
+    const openGallery = (idx) => {
+        state.currentIndex = 0;
+        state.isLightboxOpen = true;
+        const el = document.getElementById('gallery');
+        el.style.display = 'flex';
+        setTimeout(() => el.classList.add('active'), 50);
+        document.body.style.overflow = 'hidden';
+        render();
+    };
+
+    const closeGallery = () => {
+        state.isLightboxOpen = false;
+        const el = document.getElementById('gallery');
+        el.classList.remove('active');
+        setTimeout(() => el.style.display = 'none', 400);
+        document.body.style.overflow = 'auto';
+        stopTimers();
+    };
+
+    const render = () => {
+        const img = document.getElementById('displayImg');
+        const desc = document.getElementById('img-desc');
+        
+        img.style.opacity = '0';
         setTimeout(() => {
-            dom.img.src = images[currentIndex];
-            dom.img.style.opacity = '1';
-            resetProgress();
-            startProgress();
+            img.src = config.images[state.currentIndex];
+            img.style.opacity = '1';
+            desc.innerText = config.descriptions[state.currentIndex];
+            startAutoPlay();
         }, 200);
     };
 
-    const startProgress = () => {
-        clearTimeout(autoTimer);
-        clearInterval(progressTimer);
+    const startAutoPlay = () => {
+        stopTimers();
         
-        let width = 0;
-        const fill = dom.progressFills[currentIndex];
+        let progress = 0;
+        const fillEl = document.getElementById(`fill${state.currentIndex}`);
         
-        // 先填充之前的进度条
-        dom.progressFills.forEach((f, idx) => {
-            f.style.width = idx < currentIndex ? '100%' : '0%';
+        // 重置所有进度条
+        document.querySelectorAll('.fill').forEach((f, i) => {
+            f.style.width = i < state.currentIndex ? '100%' : '0%';
         });
 
-        progressTimer = setInterval(() => {
-            width += 1;
-            fill.style.width = width + '%';
-            if (width >= 100) clearInterval(progressTimer);
-        }, duration / 100);
+        state.progressTimer = setInterval(() => {
+            progress += 1;
+            fillEl.style.width = `${progress}%`;
+            if (progress >= 100) clearInterval(state.progressTimer);
+        }, config.playDuration / 100);
 
-        autoTimer = setTimeout(() => {
-            next();
-        }, duration);
+        state.timer = setTimeout(() => {
+            goNext();
+        }, config.playDuration);
     };
 
-    const resetProgress = () => {
-        dom.progressFills.forEach(f => f.style.width = '0%');
+    const stopTimers = () => {
+        clearTimeout(state.timer);
+        clearInterval(state.progressTimer);
     };
 
-    const open = (index) => {
-        currentIndex = 0;
-        dom.overlay.style.display = 'flex';
-        setTimeout(() => dom.overlay.classList.add('active'), 10);
-        document.body.style.overflow = 'hidden';
-        update();
+    const goNext = () => {
+        state.currentIndex = (state.currentIndex + 1) % config.images.length;
+        render();
     };
 
-    const close = () => {
-        dom.overlay.classList.remove('active');
-        setTimeout(() => dom.overlay.style.display = 'none', 400);
-        document.body.style.overflow = 'auto';
-        clearTimeout(autoTimer);
-        clearInterval(progressTimer);
+    const goPrev = () => {
+        state.currentIndex = (state.currentIndex - 1 + config.images.length) % config.images.length;
+        render();
     };
 
-    const next = () => {
-        currentIndex = (currentIndex + 1) % images.length;
-        update();
+    // 社交交互
+    const toggleLike = (el) => {
+        el.classList.toggle('active');
+        const valNode = el.querySelector('.val');
+        valNode.innerText = el.classList.contains('active') ? '85.4K' : '85.3K';
     };
 
-    const prev = () => {
-        currentIndex = (currentIndex - 1 + images.length) % images.length;
-        update();
+    const toggleCollect = (el) => {
+        el.classList.toggle('active');
+        el.querySelector('.val').innerText = el.classList.contains('active') ? '已收藏' : '收藏';
     };
 
-    // 键盘支持 (Esc, Left, Right)
+    const share = () => {
+        alert("链接已复制，快去分享给好友为 Bias 投票吧！");
+    };
+
+    // 键盘监听
     document.addEventListener('keydown', (e) => {
-        if (!dom.overlay.classList.contains('active')) return;
-        if (e.key === 'Escape') close();
-        if (e.key === 'ArrowRight') next();
-        if (e.key === 'ArrowLeft') prev();
+        if (!state.isLightboxOpen) return;
+        if (e.key === 'Escape') closeGallery();
+        if (e.key === 'ArrowRight') goNext();
+        if (e.key === 'ArrowLeft') goPrev();
     });
 
-    return { open, close, next, prev };
-})();
-
-const Interaction = (() => {
-    const like = (el) => {
-        el.classList.toggle('liked');
-        const countEl = el.querySelector('.count');
-        let val = parseFloat(countEl.innerText);
-        if (el.classList.contains('liked')) {
-            countEl.innerText = (val + 0.1).toFixed(1) + 'K';
-        } else {
-            countEl.innerText = '85.3K';
-        }
-    };
-
-    const initFollow = () => {
-        const btn = document.getElementById('followBtn');
-        btn.onclick = function() {
-            if (this.innerText.includes('关注')) {
-                this.innerText = '✓ 已关注';
-                this.style.background = '#2C2C2E';
-            } else {
-                this.innerText = '关注 (Follow)';
-                this.style.background = '#FE2C55';
-            }
+    // 初始化按钮
+    const init = () => {
+        const fBtn = document.getElementById('followBtn');
+        fBtn.onclick = () => {
+            fBtn.innerText = fBtn.innerText.includes('关注') ? '✓ 已关注' : '关注 (Follow)';
+            fBtn.style.background = fBtn.innerText.includes('已关注') ? '#2c2c2e' : '#fe2c55';
         };
     };
 
-    return { like, initFollow };
+    return { openGallery, closeGallery, goNext, goPrev, toggleLike, toggleCollect, share, init };
 })();
 
-// 初始化
-window.onload = () => {
-    Interaction.initFollow();
-    console.log("PAGE_X MVP Showcase Ready.");
-};
+window.onload = H5Engine.init;
