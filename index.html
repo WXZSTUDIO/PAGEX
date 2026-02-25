@@ -24,12 +24,11 @@
         </div>
         <div class="profile-bio">
             <p>📍 🇰🇷</p>
-            <p>@Eunwo🐹 @LEO🐺</p>
-            <p>@Nick🧛 @SUHO🐶</p>
+            <p>@Eunwo🐹 @LEO🐺 @Nick🧛 @SUHO🐶</p>
             <p class="live-time">LIVE Time | 09:00am(KST)</p>
         </div>
         <div class="action-buttons">
-            <button class="btn-follow">关注 (Follow)</button>
+            <button class="btn-follow" id="followBtn">关注 (Follow)</button>
             <button class="btn-msg">消息 (Message)</button>
         </div>
     </header>
@@ -39,22 +38,27 @@
     <main class="content-area">
         <div class="card-wrapper">
             <div class="card-meta">
-                <h3>PAGE_X MVP SHOWDOWN</h3>
-                <p>Make Your Bias the King [cite: 12] | 1.MAR 08:30 (KST) [cite: 13]</p>
+                <h3>PAGE_X MVP SHOWDOWN [cite: 11]</h3>
+                <p>Make Your Bias the King | 1.MAR 08:30 (KST) [cite: 12, 13]</p>
             </div>
-
             <div class="main-stage" onclick="openLightbox()">
-                <img src="images/card-1.jpg" alt="MVP SHOWDOWN Cover">
-                <div class="hover-overlay">View Details</div>
+                <img src="images/card-1.jpg" alt="MVP SHOWDOWN [cite: 11]">
+                <div class="hover-overlay">Click to view Stories</div>
             </div>
         </div>
     </main>
 
     <div class="lightbox" id="lightbox">
-        <span class="close-btn" onclick="closeLightbox()">✕ Back</span>
+        <div class="lightbox-header">
+            <div class="progress-container">
+                <div class="progress-bar"><div class="progress-fill" id="fill0"></div></div>
+                <div class="progress-bar"><div class="progress-fill" id="fill1"></div></div>
+            </div>
+            <span class="close-btn" onclick="closeLightbox()">✕ Close</span>
+        </div>
         
         <div class="lightbox-container">
-            <button class="nav-btn prev" onclick="changeImage(-1)">
+            <button class="nav-btn prev" onclick="manualChange(-1)">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"></polyline></svg>
             </button>
 
@@ -62,49 +66,103 @@
                 <img id="lightbox-img" src="" alt="Detail View">
             </div>
 
-            <button class="nav-btn next" onclick="changeImage(1)">
+            <button class="nav-btn next" onclick="manualChange(1)">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
             </button>
         </div>
     </div>
 
     <script>
-        // 逻辑：仅展示 card-2 和 card-3 [cite: 23, 41]
         const subImages = ['images/card-2.jpg', 'images/card-3.jpg'];
         let currentIndex = 0;
+        let storyTimer;
+        const duration = 5000; // 5秒自动切换
 
+        // --- 功能 4: 自动播放与进度条逻辑 ---
+        function startStory() {
+            resetProgress();
+            updateLightbox();
+            animateProgress();
+            storyTimer = setInterval(() => {
+                if (currentIndex < subImages.length - 1) {
+                    currentIndex++;
+                    updateLightbox();
+                    animateProgress();
+                } else {
+                    closeLightbox();
+                }
+            }, duration);
+        }
+
+        function animateProgress() {
+            resetProgress();
+            const activeFill = document.getElementById(`fill${currentIndex}`);
+            // 先完成之前的进度
+            for(let i=0; i<currentIndex; i++) document.getElementById(`fill${i}`).style.width = '100%';
+            // 当前进度条动画
+            setTimeout(() => activeFill.style.width = '100%', 50);
+        }
+
+        function resetProgress() {
+            document.querySelectorAll('.progress-fill').forEach(el => {
+                el.style.transition = 'none';
+                el.style.width = '0';
+                setTimeout(() => el.style.transition = `width ${duration}ms linear`, 10);
+            });
+        }
+
+        // --- 功能 2: 键盘交互逻辑 ---
+        document.addEventListener('keydown', (e) => {
+            const lb = document.getElementById('lightbox');
+            if (!lb.classList.contains('active')) return;
+            if (e.key === "ArrowLeft") manualChange(-1);
+            if (e.key === "ArrowRight") manualChange(1);
+            if (e.key === "Escape") closeLightbox();
+        });
+
+        // --- 功能 3: 社交互动模拟 ---
+        const followBtn = document.getElementById('followBtn');
+        followBtn.onclick = function() {
+            const isFollowing = this.innerText.includes('已关注');
+            this.innerText = isFollowing ? '关注 (Follow)' : '✓ 已关注';
+            this.style.background = isFollowing ? '#FE2C55' : '#2C2C2E';
+            this.style.color = 'white';
+        };
+
+        // --- 基础弹窗控制 ---
         function openLightbox() {
             currentIndex = 0;
-            updateLightbox();
             const lb = document.getElementById('lightbox');
             lb.style.display = 'flex';
             setTimeout(() => lb.classList.add('active'), 10);
-            document.body.style.overflow = 'hidden'; // 禁止背景滚动
+            document.body.style.overflow = 'hidden';
+            startStory();
         }
 
         function closeLightbox() {
+            clearInterval(storyTimer);
             const lb = document.getElementById('lightbox');
             lb.classList.remove('active');
             setTimeout(() => lb.style.display = 'none', 400);
             document.body.style.overflow = 'auto';
         }
 
-        function changeImage(step) {
+        function manualChange(step) {
+            clearInterval(storyTimer);
             currentIndex = (currentIndex + step + subImages.length) % subImages.length;
-            const img = document.getElementById('lightbox-img');
-            img.style.opacity = '0';
-            setTimeout(() => {
-                updateLightbox();
-                img.style.opacity = '1';
-            }, 150);
+            updateLightbox();
+            // 手动切换后停止自动播放，或者重新开始（此处选择重新开始当前图片的动画）
+            resetProgress();
+            for(let i=0; i<currentIndex; i++) document.getElementById(`fill${i}`).style.width = '100%';
         }
 
         function updateLightbox() {
-            document.getElementById('lightbox-img').src = subImages[currentIndex];
-        }
-
-        document.getElementById('lightbox').onclick = function(e) {
-            if (e.target.id === 'lightbox') closeLightbox();
+            const img = document.getElementById('lightbox-img');
+            img.style.opacity = '0';
+            setTimeout(() => {
+                img.src = subImages[currentIndex];
+                img.style.opacity = '1';
+            }, 150);
         }
     </script>
 </body>
