@@ -48,58 +48,58 @@
             </div>
         </section>
 
-        <section class="countdown-hero">
-            <div class="timer-title">LIVE SHOWCASE COUNTDOWN</div>
-            <div class="timer-main" id="timerMain">
-                <div class="t-block"><span id="t-d">00</span><label>DAYS</label></div>
-                <div class="t-sep">:</div>
-                <div class="t-block"><span id="t-h">00</span><label>HOURS</label></div>
-                <div class="t-sep">:</div>
-                <div class="t-block"><span id="t-m">00</span><label>MINS</label></div>
-                <div class="t-sep">:</div>
-                <div class="t-block"><span id="t-s">00</span><label>SECS</label></div>
-            </div>
-            <div class="timer-footer">1.MAR 08:30 (KST)</div>
-        </section>
-
-        <main class="content-feed">
-            <article class="feed-node">
-                <div class="node-meta">
-                    <span class="node-badge">MVP SHOWDOWN</span>
-                    <span class="node-time">Latest Update</span>
+        <div class="ui-standard-container">
+            <section class="countdown-hero">
+                <div class="timer-title">LIVE SHOWCASE COUNTDOWN</div>
+                <div class="timer-main" id="timerMain">
+                    <div class="t-block"><span id="t-d">00</span><label>DAYS</label></div>
+                    <div class="t-sep">:</div>
+                    <div class="t-block"><span id="t-h">00</span><label>HOURS</label></div>
+                    <div class="t-sep">:</div>
+                    <div class="t-block"><span id="t-m">00</span><label>MINS</label></div>
+                    <div class="t-sep">:</div>
+                    <div class="t-block"><span id="t-s">00</span><label>SECS</label></div>
                 </div>
-                
-                <div class="media-stage" onclick="H5Control.openGallery(0)">
-                    <div class="media-inner">
-                        <img src="images/card-1.jpg" alt="Cover" class="img-fluid">
-                        <div class="media-label">
-                            <i class="eye-icon"></i> Tap to View Rules
+                <div class="timer-footer">1.MAR 08:30 (KST)</div>
+            </section>
+
+            <main class="content-feed">
+                <article class="feed-node">
+                    <div class="node-meta">
+                        <span class="node-badge">MVP SHOWDOWN</span>
+                        <span class="node-time">Latest Update</span>
+                    </div>
+                    
+                    <div class="media-stage" onclick="H5Control.openGallery(0)">
+                        <div class="media-inner">
+                            <img src="images/card-1.jpg" alt="Cover" class="img-fluid">
+                            <div class="media-label">Tap to View Rules</div>
                         </div>
                     </div>
-                </div>
 
-                <div class="toolbar">
-                    <div class="tool-left">
-                        <div class="tool-btn" id="likeAction" onclick="H5Control.like()">
-                            <span class="icon-h">❤</span> <span id="likeCount">85.3K</span>
+                    <div class="toolbar">
+                        <div class="tool-left">
+                            <div class="tool-btn" id="likeAction" onclick="H5Control.like()">
+                                <span class="icon-h">❤</span> <span id="likeCount">85.3K</span>
+                            </div>
+                            <div class="tool-btn">
+                                <span class="icon-h">💬</span> 1,240
+                            </div>
+                            <div class="tool-btn" id="collectAction" onclick="H5Control.collect()">
+                                <span class="icon-h">★</span> <span id="collectLabel">Save</span>
+                            </div>
                         </div>
-                        <div class="tool-btn">
-                            <span class="icon-h">💬</span> 1,240
-                        </div>
-                        <div class="tool-btn" id="collectAction" onclick="H5Control.collect()">
-                            <span class="icon-h">★</span> <span id="collectLabel">Save</span>
+                        <div class="tool-right" onclick="H5Control.share()">
+                            <span class="icon-h">➹</span>
                         </div>
                     </div>
-                    <div class="tool-right" onclick="H5Control.share()">
-                        <span class="icon-h">➹</span>
-                    </div>
-                </div>
 
-                <div class="caption-node">
-                    <p><strong>podo.page_x</strong> Who will be the MVP KING? Check the details on the next slides! #PAGE_X #KPOP #MVP</p>
-                </div>
-            </article>
-        </main>
+                    <div class="caption-node">
+                        <p><strong>podo.page_x</strong> Who will be the MVP KING? Check the details on the next slides! #PAGE_X #KPOP #MVP</p>
+                    </div>
+                </article>
+            </main>
+        </div>
     </div>
 
     <div id="gallery-ui" class="gallery-mask">
@@ -112,11 +112,9 @@
 
         <div class="gallery-view">
             <div class="nav-trigger prev" onclick="H5Control.prev()">‹</div>
-            
             <div class="img-container">
                 <img id="viewImg" src="" alt="Rules Detail">
             </div>
-
             <div class="nav-trigger next" onclick="H5Control.next()">›</div>
         </div>
 
