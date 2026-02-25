@@ -3,133 +3,87 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PAGE_X MVP SHOWDOWN Card News</title>
-    <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f0f2f5;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            margin: 0;
-        }
-
-        /* Facebook 风格卡片容器 */
-        .card-news-container {
-            width: 100%;
-            max-width: 600px;
-            background: white;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            overflow: hidden;
-        }
-
-        .card-header {
-            padding: 12px 16px;
-        }
-
-        .card-header h2 {
-            margin: 0;
-            font-size: 1.1rem;
-            color: #1c1e21;
-        }
-
-        .card-header p {
-            margin: 4px 0 0;
-            font-size: 0.9rem;
-            color: #65676b;
-        }
-
-        /* 图片网格布局 */
-        .image-grid {
-            display: grid;
-            grid-template-columns: 2fr 1fr; /* 左大右小 */
-            grid-template-rows: 1fr 1fr;
-            gap: 2px; /* Facebook 风格的细缝 */
-            background-color: #ddd;
-            aspect-ratio: 16 / 9;
-        }
-
-        .grid-item {
-            position: relative;
-            overflow: hidden;
-            background: #000;
-        }
-
-        .grid-item img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.3s ease;
-            cursor: pointer;
-        }
-
-        .grid-item img:hover {
-            transform: scale(1.05);
-            opacity: 0.9;
-        }
-
-        /* 第一张大图占据左侧全部 */
-        .item-1 {
-            grid-row: 1 / span 2;
-            grid-column: 1 / span 1;
-        }
-
-        .card-footer {
-            padding: 12px 16px;
-            background-color: #fff;
-            border-top: 1px solid #ebedf0;
-        }
-
-        .cta-button {
-            display: block;
-            width: 100%;
-            padding: 8px;
-            background-color: #e4e6eb;
-            color: #050505;
-            text-align: center;
-            text-decoration: none;
-            border-radius: 6px;
-            font-weight: 600;
-            font-size: 0.9rem;
-        }
-
-        .cta-button:hover {
-            background-color: #d8dadf;
-        }
-
-        @media (max-width: 480px) {
-            .card-news-container {
-                border-radius: 0;
-            }
-        }
-    </style>
+    <title>PAGE_X MVP SHOWDOWN</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<div class="card-news-container">
-    <div class="card-header">
-        <h2>PAGE_X MVP SHOWDOWN</h2>
-        <p>Make Your Bias the King! 👑 | 1.MAR 08:30 (KST)</p>
+<div class="card-wrapper">
+    <div style="padding: 20px;">
+        <h2 style="margin:0; font-size:1.4rem;">PAGE_X MVP SHOWDOWN</h2>
+        <p style="color:#86868b; margin:5px 0 0;">Make Your Bias the King [cite: 12]</p>
     </div>
 
-    <div class="image-grid">
-        <div class="grid-item item-1">
-            <img src="path_to_your_image_1.jpg" alt="Thumbnail: PAGE_X MVP SHOWDOWN">
-        </div>
-        <div class="grid-item">
-            <img src="path_to_your_image_2.jpg" alt="Schedule: Opening to Grand Final">
-        </div>
-        <div class="grid-item">
-            <img src="path_to_your_image_3.jpg" alt="Rules: How the Scores Work">
-        </div>
+    <div class="main-stage" onclick="openLightbox(0)">
+        <img src="images/card-1.jpg" alt="Cover">
     </div>
 
-    <div class="card-footer">
-        <a href="https://vt.tiktok.com/ZSmX1Afh2/" class="cta-button" target="_blank">View More on TikTok</a>
+    <div style="padding: 15px; text-align: center; color: #86868b; font-size: 0.9rem;">
+        Click to view details
     </div>
 </div>
+
+<div class="lightbox" id="lightbox">
+    <div class="lightbox-content">
+        <span class="close-btn" onclick="closeLightbox()">✕ Back to Main</span>
+        
+        <button class="nav-btn prev" onclick="changeImage(-1)">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"></polyline></svg>
+        </button>
+
+        <img id="lightbox-img" src="" alt="Detail View">
+
+        <button class="nav-btn next" onclick="changeImage(1)">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg>
+        </button>
+    </div>
+</div>
+
+<script>
+    // 逻辑：点击后仅在 card-2 和 card-3 之间切换
+    const subImages = [
+        'images/card-2.jpg', // 索引 0 
+        'images/card-3.jpg'  // 索引 1 
+    ];
+    
+    let currentIndex = 0;
+
+    function openLightbox(index) {
+        currentIndex = 0; // 默认点开展示 card-2
+        updateLightbox();
+        const lb = document.getElementById('lightbox');
+        lb.style.display = 'flex';
+        setTimeout(() => lb.classList.add('active'), 10);
+    }
+
+    function closeLightbox() {
+        const lb = document.getElementById('lightbox');
+        lb.classList.remove('active');
+        setTimeout(() => lb.style.display = 'none', 400);
+    }
+
+    function changeImage(step) {
+        // 在 card-2 和 card-3 之间循环
+        currentIndex = (currentIndex + step + subImages.length) % subImages.length;
+        
+        // 添加简单的淡入淡出动画过渡图片
+        const img = document.getElementById('lightbox-img');
+        img.style.opacity = '0';
+        setTimeout(() => {
+            updateLightbox();
+            img.style.opacity = '1';
+        }, 200);
+    }
+
+    function updateLightbox() {
+        document.getElementById('lightbox-img').src = subImages[currentIndex];
+    }
+
+    // 点击暗部区域返回
+    document.getElementById('lightbox').onclick = function(e) {
+        if (e.target.id === 'lightbox') closeLightbox();
+    }
+</script>
 
 </body>
 </html>
