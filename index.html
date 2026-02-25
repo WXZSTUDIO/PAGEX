@@ -6,7 +6,7 @@
     <title>PAGE_X Official Profile</title>
     <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body class="dark-mode">
 
     <header class="profile-header">
         <div class="profile-top">
@@ -29,8 +29,8 @@
             <p class="live-time">LIVE Time | 09:00am(KST)</p>
         </div>
         <div class="action-buttons">
-            <button class="btn-follow">Follow</button>
-            <button class="btn-msg">Message</button>
+            <button class="btn-follow">关注 (Follow)</button>
+            <button class="btn-msg">消息 (Message)</button>
         </div>
     </header>
 
@@ -40,7 +40,7 @@
         <div class="card-wrapper">
             <div class="card-meta">
                 <h3>PAGE_X MVP SHOWDOWN</h3>
-                <p>Make Your Bias the King | 1.MAR 08:30 (KST)</p>
+                <p>Make Your Bias the King [cite: 12] | 1.MAR 08:30 (KST) [cite: 13]</p>
             </div>
 
             <div class="main-stage" onclick="openLightbox()">
@@ -51,23 +51,25 @@
     </main>
 
     <div class="lightbox" id="lightbox">
-        <div class="lightbox-content">
-            <span class="close-btn" onclick="closeLightbox()">✕ Close</span>
-            
+        <span class="close-btn" onclick="closeLightbox()">✕ Back</span>
+        
+        <div class="lightbox-container">
             <button class="nav-btn prev" onclick="changeImage(-1)">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><polyline points="15 18 9 12 15 6"></polyline></svg>
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"></polyline></svg>
             </button>
 
-            <img id="lightbox-img" src="" alt="Detail View">
+            <div class="img-viewport">
+                <img id="lightbox-img" src="" alt="Detail View">
+            </div>
 
             <button class="nav-btn next" onclick="changeImage(1)">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
             </button>
         </div>
     </div>
 
     <script>
-        // 逻辑：仅展示 card-2 和 card-3 
+        // 逻辑：仅展示 card-2 和 card-3 [cite: 23, 41]
         const subImages = ['images/card-2.jpg', 'images/card-3.jpg'];
         let currentIndex = 0;
 
@@ -77,12 +79,14 @@
             const lb = document.getElementById('lightbox');
             lb.style.display = 'flex';
             setTimeout(() => lb.classList.add('active'), 10);
+            document.body.style.overflow = 'hidden'; // 禁止背景滚动
         }
 
         function closeLightbox() {
             const lb = document.getElementById('lightbox');
             lb.classList.remove('active');
             setTimeout(() => lb.style.display = 'none', 400);
+            document.body.style.overflow = 'auto';
         }
 
         function changeImage(step) {
