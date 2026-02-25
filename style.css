@@ -1,109 +1,284 @@
-/* 全量重写样式：极致黑 & Apple 动效 */
+/* PAGE_X PROFESSIONAL H5 STYLESHEET
+   DESIGNED FOR: OLED HIGH CONTRAST & RESPONSIVE PRECISION
+*/
+
 :root {
-    --black: #000000;
-    --dark-grey: #1c1c1e;
-    --accent: #fe2c55;
-    --blue: #0a84ff;
-    --text-primary: #ffffff;
-    --text-secondary: #8e8e93;
-    --bezier: cubic-bezier(0.4, 0, 0.2, 1);
+    --true-black: #000000;
+    --deep-gray: #121212;
+    --ui-gray: #1C1C1E;
+    --border-gray: #2C2C2E;
+    --text-pure: #FFFFFF;
+    --text-muted: #8E8E93;
+    --apple-blue: #0A84FF;
+    --tiktok-red: #FE2C55;
+    --soft-white: rgba(255, 255, 255, 0.9);
+    
+    /* 动画曲线 */
+    --ease-out-expo: cubic-bezier(0.19, 1, 0.22, 1);
+    --ease-in-out-quint: cubic-bezier(0.83, 0, 0.17, 1);
 }
 
-* { box-sizing: border-box; -webkit-font-smoothing: antialiased; }
-body { 
-    background-color: var(--black); 
-    color: var(--text-primary); 
-    margin: 0; 
-    font-family: -apple-system, sans-serif;
+/* 基础样式初始化 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -webkit-font-smoothing: antialiased;
+}
+
+body.dark-mode-optimized {
+    background-color: var(--true-black);
+    color: var(--text-pure);
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", Arial, sans-serif;
+    line-height: 1.5;
     overflow-x: hidden;
 }
 
-/* 顶部导航 */
-.h5-header {
-    height: 50px; display: flex; justify-content: space-between; 
-    align-items: center; padding: 0 16px; position: sticky; top: 0;
-    background: rgba(0,0,0,0.8); backdrop-filter: blur(10px); z-index: 100;
+/* 导航栏样式 */
+.global-navigation {
+    height: 60px;
+    background: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    border-bottom: 0.5px solid var(--border-gray);
 }
 
-/* 字母头像设计 */
-.letter-avatar {
-    width: 80px; height: 80px; border-radius: 50%;
-    background: linear-gradient(135deg, #6366f1, #a855f7, #ec4899);
-    display: flex; justify-content: center; align-items: center;
-    font-size: 2rem; font-weight: 800; color: white;
-    border: 2px solid #2c2c2e;
+.nav-container {
+    max-width: 600px;
+    height: 100%;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 16px;
 }
 
-.profile-card { padding: 20px 16px; }
-.profile-main { display: flex; gap: 20px; align-items: center; }
-.alias { font-size: 1.4rem; margin: 0; }
-.v-badge { color: var(--blue); font-size: 1rem; }
-.group-tag { color: var(--text-secondary); margin: 5px 0; font-size: 0.9rem; }
-.stat-row { display: flex; gap: 15px; font-size: 0.9rem; margin-top: 10px; }
-.bio-text { margin: 20px 0; font-size: 0.95rem; line-height: 1.6; color: #d1d1d6; }
-.live-status { color: var(--blue); font-weight: bold; }
-
-.btn-group { display: flex; gap: 10px; }
-.btn-follow, .btn-chat {
-    flex: 1; border: none; padding: 12px; border-radius: 8px;
-    font-weight: 600; cursor: pointer; transition: 0.3s;
-}
-.btn-follow { background: var(--accent); color: white; }
-.btn-chat { background: #2c2c2e; color: white; }
-
-/* 内容组件 */
-.feed-flow { padding: 16px; }
-.content-post { background: var(--dark-grey); border-radius: 16px; overflow: hidden; }
-.post-info { padding: 16px; }
-.category { color: var(--accent); font-size: 0.8rem; font-weight: bold; }
-.title { margin: 8px 0; font-size: 1.1rem; }
-.event-time { font-size: 0.85rem; color: var(--text-secondary); }
-
-.media-container { width: 100%; aspect-ratio: 3/2; background: #000; position: relative; cursor: pointer; overflow: hidden; }
-.main-img { width: 100%; height: 100%; object-fit: cover; transition: 0.8s var(--bezier); }
-.media-container:hover .main-img { transform: scale(1.05); }
-.expand-tag { position: absolute; bottom: 12px; right: 12px; background: rgba(0,0,0,0.7); padding: 5px 12px; border-radius: 15px; font-size: 0.75rem; }
-
-/* 社交组件 */
-.social-actions { display: flex; padding: 15px; justify-content: space-around; border-top: 1px solid #2c2c2e; }
-.action-item { display: flex; align-items: center; gap: 6px; cursor: pointer; transition: 0.2s; }
-.action-item:active { transform: scale(0.9); }
-.icon { font-size: 1.2rem; }
-.action-item.active .icon { color: var(--accent); }
-
-/* 弹窗核心逻辑：全自适应不裁切 */
-.lightbox-overlay {
-    display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-    background: #000; z-index: 1000; flex-direction: column; 
-    opacity: 0; transition: opacity 0.4s var(--apple-ease);
-}
-.lightbox-overlay.active { display: flex; opacity: 1; }
-
-.story-progress { display: flex; gap: 5px; padding: 15px; position: absolute; top: 0; width: 100%; }
-.prog-bar { height: 2px; flex: 1; background: rgba(255,255,255,0.2); border-radius: 2px; overflow: hidden; }
-.fill { height: 100%; width: 0%; background: #fff; }
-
-.viewer-core { flex: 1; display: flex; align-items: center; justify-content: center; position: relative; }
-.image-box { width: 90%; height: 80vh; display: flex; justify-content: center; align-items: center; }
-#displayImg { 
-    max-width: 100%; 
-    max-height: 100%; 
-    object-fit: contain; /* 核心：确保图片不被裁切 */
-    box-shadow: 0 0 50px rgba(0,0,0,0.5);
-    border-radius: 8px;
-    transition: opacity 0.3s;
+.nav-middle-brand {
+    font-weight: 700;
+    letter-spacing: 1px;
+    font-size: 0.9rem;
 }
 
-.side-btn { 
-    width: 44px; height: 44px; border-radius: 50%; background: rgba(255,255,255,0.1);
-    display: flex; justify-content: center; align-items: center; font-size: 1.5rem;
-    position: absolute; z-index: 10; cursor: pointer;
+.nav-right-options {
+    display: flex;
+    gap: 4px;
 }
-.prev { left: 15px; } .next { right: 15px; }
-.close-lightbox { position: absolute; top: 40px; right: 20px; z-index: 1100; background: none; border: 1px solid #fff; color: #fff; padding: 5px 15px; border-radius: 20px; }
 
+.nav-right-options .dot {
+    width: 4px; height: 4px; border-radius: 50%; background: var(--text-pure);
+}
+
+/* 字母头像与个人资料卡 */
+.user-profile-card {
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 0 20px;
+}
+
+.profile-upper-layout {
+    display: flex;
+    align-items: center;
+    gap: 25px;
+    margin-bottom: 20px;
+}
+
+.avatar-dynamic-gradient {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #FF3CAC 0%, #784BA0 50%, #2B86C5 100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    box-shadow: 0 0 20px rgba(120, 75, 160, 0.4);
+}
+
+.avatar-text {
+    font-size: 2.2rem;
+    font-weight: 900;
+    color: white;
+}
+
+.live-ring {
+    position: absolute;
+    inset: -4px;
+    border-radius: 50%;
+    border: 2px solid var(--tiktok-red);
+    animation: pulse-ring 2s infinite;
+}
+
+@keyframes pulse-ring {
+    0% { transform: scale(1); opacity: 1; }
+    100% { transform: scale(1.1); opacity: 0; }
+}
+
+.user-name-row { display: flex; align-items: center; gap: 8px; }
+.display-name { font-size: 1.5rem; font-weight: 700; }
+.verified-icon { 
+    background: var(--apple-blue); color: white; border-radius: 50%; 
+    width: 18px; height: 18px; display: flex; justify-content: center; align-items: center; font-size: 10px;
+}
+
+.account-handle { color: var(--text-muted); font-size: 0.9rem; margin: 2px 0; }
+
+.data-row {
+    display: flex; gap: 20px; margin-top: 12px;
+}
+
+.stat-item { font-size: 0.9rem; display: flex; gap: 4px; }
+.stat-item span { color: var(--text-muted); }
+
+.profile-description { margin: 20px 0; }
+.bio-tags { display: flex; gap: 10px; margin-bottom: 10px; }
+.bio-tags span { color: var(--apple-blue); font-size: 0.85rem; font-weight: 500; }
+.bio-content { font-size: 0.95rem; color: #E5E5E7; line-height: 1.6; }
+
+.live-announcement {
+    margin-top: 12px; padding: 10px 15px; background: rgba(10, 132, 255, 0.1);
+    border-radius: 10px; border: 0.5px solid rgba(10, 132, 255, 0.2); font-size: 0.85rem;
+}
+
+.pulse-icon {
+    display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: var(--apple-blue);
+    margin-right: 6px; animation: blink 1.5s infinite;
+}
+
+@keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+
+/* 按钮组样式 */
+.profile-action-group {
+    display: flex; gap: 8px; margin-top: 25px;
+}
+
+.primary-action-btn, .secondary-action-btn, .icon-action-btn {
+    border: none; border-radius: 10px; font-weight: 600; cursor: pointer; transition: all 0.3s var(--ease-out-expo);
+}
+
+.primary-action-btn { flex: 4; background: var(--tiktok-red); color: white; padding: 12px; }
+.secondary-action-btn { flex: 4; background: var(--ui-gray); color: white; padding: 12px; }
+.icon-action-btn { flex: 1; background: var(--ui-gray); color: white; }
+
+.primary-action-btn:active { transform: scale(0.96); opacity: 0.8; }
+
+/* 内容流布局 */
+.main-content-feed { max-width: 600px; margin: 30px auto; padding: 0 16px; }
+.interactive-post-node { background: var(--ui-gray); border-radius: 20px; overflow: hidden; margin-bottom: 30px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+
+.post-node-header { padding: 16px; display: flex; justify-content: space-between; align-items: flex-end; }
+.node-tag { color: var(--tiktok-red); font-size: 0.75rem; font-weight: 800; letter-spacing: 1px; }
+.node-main-title { font-size: 1.1rem; margin-top: 4px; font-weight: 700; }
+.node-timestamp { font-size: 0.75rem; color: var(--text-muted); }
+
+/* 图片视口方案：不裁剪的关键 */
+.media-viewport-container { width: 100%; background: #000; cursor: pointer; position: relative; }
+.media-ratio-box { width: 100%; aspect-ratio: 3 / 2; overflow: hidden; }
+.fluid-media-asset { width: 100%; height: 100%; object-fit: cover; transition: transform 1.2s var(--ease-out-expo); }
+.media-viewport-container:hover .fluid-media-asset { transform: scale(1.05); }
+
+.media-interactive-hint {
+    position: absolute; bottom: 15px; right: 15px; background: rgba(0,0,0,0.7);
+    padding: 6px 15px; border-radius: 30px; font-size: 0.75rem; color: white;
+    backdrop-filter: blur(10px); display: flex; align-items: center; gap: 8px;
+    border: 0.5px solid rgba(255,255,255,0.1);
+}
+
+/* 社交互动区域 */
+.social-engagement-wrapper {
+    padding: 15px 18px; display: flex; justify-content: space-between; align-items: center;
+    border-top: 0.5px solid var(--border-gray);
+}
+
+.engagement-cluster { display: flex; gap: 25px; }
+.engage-trigger { display: flex; align-items: center; gap: 6px; cursor: pointer; transition: 0.2s; }
+.engage-trigger svg { width: 22px; height: 22px; stroke: var(--text-pure); }
+.engage-label { font-size: 0.85rem; color: var(--text-muted); font-weight: 500; }
+
+/* 互动状态：点赞效果 */
+.engage-trigger.active svg { fill: var(--tiktok-red); stroke: var(--tiktok-red); }
+.engage-trigger.active .engage-label { color: var(--text-pure); }
+.collect-trigger.active svg { fill: #FFD60A; stroke: #FFD60A; }
+
+.post-caption-box { padding: 0 18px 20px; font-size: 0.95rem; line-height: 1.5; color: #D1D1D6; }
+.post-caption-box strong { color: var(--text-pure); margin-right: 8px; }
+
+/* 沉浸式弹窗系统 */
+.immersive-modal {
+    display: none; position: fixed; inset: 0; background: var(--true-black); z-index: 5000;
+    flex-direction: column; opacity: 0; transition: all 0.5s var(--ease-in-out-quint);
+}
+
+.immersive-modal.active { display: flex; opacity: 1; }
+
+.story-indicator-system {
+    position: absolute; top: 15px; left: 0; width: 100%; padding: 0 15px;
+    display: flex; gap: 6px; z-index: 5100;
+}
+
+.indicator-track { height: 2px; flex: 1; background: rgba(255, 255, 255, 0.2); border-radius: 4px; overflow: hidden; }
+.indicator-fill { height: 100%; width: 0%; background: #FFF; transition: none; }
+
+.modal-top-bar {
+    height: 70px; display: flex; justify-content: space-between; align-items: center;
+    padding: 20px 20px 0; z-index: 5100;
+}
+
+.modal-title-info { font-size: 0.8rem; font-weight: 800; letter-spacing: 2px; color: var(--text-muted); }
+.modal-close-trigger { 
+    background: rgba(255, 255, 255, 0.1); border: none; color: white; padding: 6px 18px; 
+    border-radius: 30px; font-weight: 600; font-size: 0.85rem; cursor: pointer;
+}
+
+/* 画廊核心渲染引擎：解决裁剪问题的核心 */
+.gallery-master-viewport {
+    flex: 1; display: flex; align-items: center; justify-content: space-between;
+    width: 100%; height: 100%; overflow: hidden;
+}
+
+.viewport-content-frame {
+    flex: 1; height: 100%; display: flex; justify-content: center; align-items: center;
+    padding: 20px;
+}
+
+#image-render-layer {
+    width: 100%; height: 85vh; display: flex; justify-content: center; align-items: center;
+}
+
+#active-gallery-asset {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain; /* 保证原图比例显示，绝不裁剪 */
+    border-radius: 12px;
+    box-shadow: 0 30px 60px rgba(0,0,0,0.8);
+    transition: opacity 0.4s var(--ease-out-expo), transform 0.6s var(--ease-out-expo);
+}
+
+.round-btn {
+    width: 50px; height: 50px; background: rgba(255, 255, 255, 0.1);
+    border-radius: 50%; color: white; display: flex; justify-content: center; align-items: center;
+    font-size: 1.5rem; cursor: pointer; transition: 0.3s;
+}
+
+.round-btn:hover { background: rgba(255, 255, 255, 0.2); transform: scale(1.1); }
+
+.gallery-bottom-info {
+    padding: 20px 40px 40px; text-align: center;
+}
+
+.desc-text { font-size: 0.95rem; color: #E5E5E7; margin-bottom: 10px; font-weight: 500; }
+.page-counter-node { font-size: 0.8rem; color: var(--text-muted); font-family: monospace; }
+
+/* 响应式媒体查询：移动端布局优化 */
 @media (max-width: 768px) {
-    .image-box { width: 100%; height: 70vh; }
-    .side-btn { bottom: 50px; }
-    .prev { left: 25%; } .next { right: 25%; }
+    .viewport-nav-left, .viewport-nav-right {
+        position: absolute; bottom: 80px; z-index: 5200;
+    }
+    .viewport-nav-left { left: 25%; }
+    .viewport-nav-right { right: 25%; }
+    .round-btn { width: 44px; height: 44px; }
+    #image-render-layer { height: 70vh; }
+    .gallery-bottom-info { padding: 10px 20px 40px; }
 }
